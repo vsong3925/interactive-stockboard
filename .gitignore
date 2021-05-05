@@ -6,6 +6,10 @@ __pycache__/
 # C extensions
 *.so
 
+Config.py
+config.js
+
+
 # Distribution / packaging
 .Python
 build/

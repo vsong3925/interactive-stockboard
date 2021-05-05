@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Interactive Stock Board">
+    <meta name="keywords" content="HTML, CSS, JavaScript">
+
+    <title>Stock Board</title>
+
+    <!-- Plotly JS -->
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/jpg" href="{{url_for('static', filename='Images/favicon_big.png')}}"/>
+
+    <!-- D3 JS -->
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.js"></script>
+
+    <!-- D3 CDN -->
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    
+    <!--CSS-->
+    <link href="{{ url_for('static', filename='./css/style.css')}}" rel="stylesheet">
+
+    <!-- ss correlation-->
+    <script src="https://unpkg.com/simple-statistics@5.0.0/dist/simple-statistics.min.js"></script>
+
+    <script src="{{ url_for('static', filename='js/script.js')}}" defer></script>
+</head>
+
+<body>
+    <!-- ************************* Header ************************************ -->
+    <!-- ************** Fixed Navigation ****************** -->
+    <section class="top-header">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <ul class="currency-status">
+                        <li>
+                            <a href="#">
+                                <span>DJIA</span>
+                                <span>34065.90</span>
+                                <i class="tf-ion-arrow-down-b down-status">0.06%</i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <span>S&P 500</span>
+                                <span >4188.58</span>
+                                <i class="tf-arrow-dropup up-status">0.21%</i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#"> 
+                                <span>Nasdaq</span>
+                                <span>14100.65</span>
+                                <i class="tf-arrow-dropup up-status">0.60%</i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <span>U.S.10 Yr</span>
+                                <span>-23/32 Yield</span>
+                                <i class="tf-arrow-dropup up-status">1.569%</i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <span>Crude Oil</span>
+                                <span>62.07</span>
+                                <i class="tf-arrow-dropup down-status">0.11%</i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <span>Euro</span>
+                                <span>1.2087</span>
+                                <i class="tf-arrow-dropup down-status">0.09%</i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- ************** Header Navigation ****************** -->
+    <section class="header  navigation">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <nav class="navbar navbar-expand-lg">
+                        <a class="navbar-brand" href="index.html">
+                            <!-- <img src="{{url_for('static', filename='./Images/logo2.jpeg')}}" style="width:10%; height:10%;"  alt="logo"> -->
+                            <a class="navbar-brand" style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;" href="#">StockBoard</a>
+                        </a>
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="tf-ion-android-menu"></span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul class="navbar-nav ml-auto">
+                              <!-- <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="#">Home</a>
+                              </li> -->
+                                <li class="nav-item active">
+                                    <a class="nav-link" href="/">Dashboard<span class="sr-only">(current)</span></a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#performance">Performance</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#trackstock">Track Stock</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#prediction">Prediction</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#heardonthestreet">Heard on the Street</a>
+                                </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#aboutme" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        About Me
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <a class="dropdown-item" href="https://docs.google.com/document/d/1QFlIUs5jUSLFSy2KjPTQlyGYrPuwWouCBLpx9NP-83E/edit?usp=sharing">Resume</a>
+                                        <a class="dropdown-item" href="https://github.com/vsong3925">GitHub</a>
+                                        <a class="dropdown-item" href="https://www.linkedin.com/in/zenanverasong/">LinkedIn</a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ************************** Introduction Area ****************************-->
+    <section class="introduction">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 align-self-center mb-4 mb-lg-0">
+                    <div class="video-player">
+                        <img class="img-fluid rounded" src="{{url_for('static', filename='Images/slider-bg-2.jpg')}}" alt="">
+                        <a class="play-icon">
+                            <i class="tf-ion-ios-play" data-video="https://www.youtube.com/embed/p7HKvqRI_Bo"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="block">
+                        <h2>Stock Market Performance - Past Present and Future</h2>
+                        <p>Live track stock performance, review the stock market performance over the past 20 years and preview the performance prediction in 2021.</p>
+                        <ul class="list-inline">
+                            <li class="list-inline-item">
+                                <a data-scroll href="#performance" class="btn btn-main">Explore Us</a>		
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>	
+</body>
+</html>
